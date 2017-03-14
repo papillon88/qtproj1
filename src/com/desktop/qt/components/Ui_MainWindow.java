@@ -1,12 +1,15 @@
-package com.desktop.qt; /********************************************************************************
+package com.desktop.qt.components; /********************************************************************************
  ** Form generated from reading ui file 'Qt2.jui'
  **
  ** Created by: Qt User Interface Compiler version 4.8.7
  **
  ** WARNING! All changes made in this file will be lost when recompiling ui file!
  ********************************************************************************/
+import com.desktop.qt.pathproc.Pathprocessor;
 import com.trolltech.qt.core.*;
 import com.trolltech.qt.gui.*;
+
+import java.io.IOException;
 
 public class Ui_MainWindow implements com.trolltech.qt.QUiForm<QMainWindow>
 {
@@ -81,19 +84,9 @@ public class Ui_MainWindow implements com.trolltech.qt.QUiForm<QMainWindow>
         pushButton.setText(com.trolltech.qt.core.QCoreApplication.translate("MainWindow", "GET", null));
     } // retranslateUi
 
-    public static void main(String args[]) {
-        QApplication.initialize(args);
-
-        QMainWindow mainWindow = new QMainWindow();
-        Ui_MainWindow mainUIWindow = new Ui_MainWindow();
-        mainUIWindow.setupUi(mainWindow);
-        mainWindow.show();
-        QApplication.execStatic();
-    }
-
-    public void processPath(){
+    public void processPath() throws IOException {
         String path = lineEdit.text();
-        textBrowser.append(path);
+        textBrowser.append(Pathprocessor.processPathString(path));
     }
 
 }
