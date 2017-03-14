@@ -1,0 +1,53 @@
+apply plugin : "java"
+version '1.0-SNAPSHOT'
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs',include:'*.jar')
+    //runtime fileTree(dir: 'libs',include:'*.jar')
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ['src']
+        }
+    }
+}
+
+jar {//fat jar
+    from {
+        (configurations.compile).collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+    }
+    manifest {
+        attributes 'Main-Class': 'com.desktop.qt.Ui_MainWindow'
+    }
+}
+
+/*task execute (type: JavaExec){
+    main = "com.desktop.qt.Ui_MainWindow"
+    classpath = sourceSets.main.runtimeClasspath
+}
+
+jar {
+    from {
+        (configurations.runtime).collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+        (configurations.compile).collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+    }
+    manifest {
+        attributes 'Main-Class': 'com.desktop.qt.Ui_MainWindow'
+    }
+}*/
